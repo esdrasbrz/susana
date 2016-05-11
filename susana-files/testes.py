@@ -7,7 +7,7 @@ import os
 import commands
 
 # PATHs usados no SuSana
-SUSANA_FILES = "/opt/tomcat/webapps/susana-files"
+SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"
 
 
 # Compila o programa e retorna caso ocorra algum erro ou warning
