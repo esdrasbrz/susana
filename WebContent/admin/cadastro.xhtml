@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="head"></ui:define>
+
+	<ui:define name="body">
+		Olá, humanos! Estou aqui para auxiliá-los a testar seus labs :D
+		<br />
+		<br />
+		<br />
+
+		<h:form id="frmCadastros">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		
+			<p:fieldset legend="Disciplina">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="disNome" value="Nome: " />
+					<p:inputText id="disNome" value="#{disciplinasController.disciplina.nome}" />
+					
+					<h:outputText value="" />
+					<p:commandButton value="Adicionar" actionListener="#{disciplinasController.adicionar()}" update=":frmCadastros" />
+				</h:panelGrid>
+			</p:fieldset>
+	
+			<br />
+			<br />
+			
+			<p:fieldset legend="Lab">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="labNome" value="Nome: " />
+					<p:inputText id="labNome" value="#{labController.lab.nome}" />
+					
+					<p:outputLabel for="labTestes" value="Qtd. Testes: " />
+					<p:spinner id="labTestes" value="#{labController.lab.qtdTestes}" />
+					
+					<p:outputLabel for="labUrl" value="Url Testes: " />
+					<p:inputText id="labUrl" value="#{labController.lab.urlTestes}" />
+					
+					<p:outputLabel for="labDis" value="Disciplina:" />
+					<p:selectOneMenu id="labDis" value="#{labController.lab.disciplina.id}">
+						<c:forEach items="#{disciplinasController.disciplinas}" var="disciplina">
+							<f:selectItem itemLabel="#{disciplina.nome}" itemValue="#{disciplina.id}" />
+						</c:forEach>
+					</p:selectOneMenu>
+					
+					<h:outputText value="" />
+					<p:commandButton value="Adicionar" actionListener="#{labController.adicionar()}" update=":frmCadastros" />
+				</h:panelGrid>
+			</p:fieldset>
+			
+			<br />
+			<br />			
+			<p:commandButton ajax="false" action="#{loginController.logout()}" value="Logout" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

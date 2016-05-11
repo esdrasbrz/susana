@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="head"></ui:define>
+
+	<ui:define name="body">
+		Olá, humanos! Estou aqui para auxiliá-los a testar seus labs :D
+		<br />
+		<br />
+		<br />
+
+		<h:form id="frmDisciplina">
+			<p:dataList value="#{disciplinasController.disciplinas}"
+				var="disciplina">
+				<f:facet name="header">
+				Escolha a disciplina:
+			</f:facet>
+				<p:commandLink ajax="false"
+					action="#{disciplinasController.selDisciplina(disciplina)}">
+					<h:outputText value="#{disciplina.nome}" />
+				</p:commandLink>
+			</p:dataList>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

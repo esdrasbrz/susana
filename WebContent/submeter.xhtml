@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="head"></ui:define>
+
+	<ui:define name="body">
+		<br />
+		
+		Selecione o código fonte: 
+		<h:form enctype="multipart/form-data">
+					<p:fileUpload 
+						invalidFileMessage="Arquivo inválido!" fileUploadListener="#{labController.upload}"
+						invalidSizeMessage="Tamanho inválido!" cancelLabel="Cancelar"
+						label="Abrir" uploadLabel="Upload" mode="advanced" multiple="false"
+						sizeLimit="1000000" allowTypes="/(\.|\/)(c)$/" oncomplete="window.location='/susana/exibir.jsf';" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

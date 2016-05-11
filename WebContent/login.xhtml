@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="head"></ui:define>
+
+	<ui:define name="body">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<br />
+
+		<h:form id="frmLogin">
+			<p:fieldset legend="Login">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="usuario" value="Nome de usuário:" />
+					<p:inputText id="usuario" value="#{loginController.login.usuario}" />
+					
+					<p:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" value="#{loginController.login.senha}" />
+				
+					<h:outputText value="" />
+					<p:commandButton ajax="false" value="Login" action="#{loginController.logar()}" />
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
