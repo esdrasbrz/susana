@@ -1,5 +1,6 @@
 package com.susana.dao;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -11,6 +12,7 @@ import com.susana.model.Lab;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
+	private static Session session;
 
 	private HibernateUtil() {
 	}
@@ -32,6 +34,21 @@ public class HibernateUtil {
 			return sessionFactory;
 		} else {
 			return sessionFactory;
+		}
+	}
+	
+	public static Session getSession() {
+		if (session == null || !session.isOpen()) {
+			session = getSessionFactory().openSession();
+		}
+		
+		return session;
+	}
+	
+	public static void closeSession() {
+		if (session != null) {
+			session.close();
+			session = null;
 		}
 	}
 }

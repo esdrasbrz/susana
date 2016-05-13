@@ -9,10 +9,9 @@ public class LabDaoImp implements LabDao {
 
 	@Override
 	public void salvar(Lab lab) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = session.beginTransaction();
 		session.save(lab);
 		t.commit();
-		session.close();
 	}
 }

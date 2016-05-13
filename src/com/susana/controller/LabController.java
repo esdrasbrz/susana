@@ -84,6 +84,9 @@ public class LabController {
 
 			// verifica se não houve erro na compilacao
 			if (!erro.contains("error: ")) {
+				// seta as permissoes de execucao no arquivo
+				invocable.invokeFunction("set_permissao", fileName, lab.getDisciplina().getNome(), lab.getNome());
+				
 				// percorre todos os testes
 				for (int i = 1; i <= lab.getQtdTestes(); i++) {
 					// executa o programa para a entrada i e compara

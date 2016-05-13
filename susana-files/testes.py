@@ -8,6 +8,7 @@ import commands
 
 # PATHs usados no SuSana
 SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"
+#SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"
 
 
 # Compila o programa e retorna caso ocorra algum erro ou warning
@@ -17,6 +18,14 @@ def compilar(fileName, disciplina, lab):
 
     return commands.getoutput("gcc -std=c99 -pedantic -Wall -lm %s -o %s" %(path+fileName, path+fileName+"out"))
 
+# Seta as permissoes para o executavel
+def set_permissao(fileName, disciplina, lab):
+    # seta o path
+    path = SUSANA_FILES + disciplina + "/" + lab + "/"
+
+    os.system("chmod a-x %s" %(path+fileName+"out"))
+    os.system("chmod u+x %s" %(path+fileName+"out"))
+
 # Executa o programa e compara o arquivo, retornando o resultado
 def testar(fileName, disciplina, lab, num):
     # seta os paths
@@ -24,8 +33,11 @@ def testar(fileName, disciplina, lab, num):
     path_testes = path + "testes/"
     path_out = path + "out/"
 
-    # executa e salva a saida
-    os.system("cd %s && ./%s <%sarq%02d.in >%sarq%02d" %(path, fileName + "out", path_testes, int(num), path_out + fileName, int(num)))
+    # executa e salva a saida. Se o retorno for maior que 100, ele da timeout
+    ret = os.system("cd %s && timeout 5 ./%s <%sarq%02d.in >%sarq%02d" %(path, fileName + "out", path_testes, int(num), path_out + fileName, int(num)))
+
+    if (ret > 100):
+        return "Timeout!"
 
     # compara a saida
     diff = commands.getoutput("diff %sarq%02d %sarq%02d.res" %(path_out + fileName, int(num), path_testes, int(num)))

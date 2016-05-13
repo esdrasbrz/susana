@@ -12,31 +12,27 @@ public class DisciplinaDaoImp implements DisciplinaDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Disciplina> listar() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		
 		// listagem
 		List<Disciplina> lista = session.createCriteria(Disciplina.class).list();
 		
-		// fecha a sessao
-		session.close();
 		return lista;
 	}
 
 	@Override
 	public void salvar(Disciplina disciplina) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = session.beginTransaction();
 		session.save(disciplina);
 		t.commit();
-		session.close();
 	}
 
 	@Override
 	public Disciplina pesquisa(int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Disciplina disciplina = (Disciplina) session.createSQLQuery("select * from Disciplina where id = " + id).addEntity(Disciplina.class).list().get(0);
 		
-		session.close();
 		return disciplina;
 	}
 }
