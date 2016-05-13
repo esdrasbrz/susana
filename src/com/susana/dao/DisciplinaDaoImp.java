@@ -14,7 +14,12 @@ public class DisciplinaDaoImp implements DisciplinaDao {
 	public List<Disciplina> listar() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		return session.createCriteria(Disciplina.class).list();
+		// listagem
+		List<Disciplina> lista = session.createCriteria(Disciplina.class).list();
+		
+		// fecha a sessao
+		session.close();
+		return lista;
 	}
 
 	@Override
@@ -23,11 +28,15 @@ public class DisciplinaDaoImp implements DisciplinaDao {
 		Transaction t = session.beginTransaction();
 		session.save(disciplina);
 		t.commit();
+		session.close();
 	}
 
 	@Override
 	public Disciplina pesquisa(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		return (Disciplina) session.createSQLQuery("select * from Disciplina where id = " + id).addEntity(Disciplina.class).list().get(0);
+		Disciplina disciplina = (Disciplina) session.createSQLQuery("select * from Disciplina where id = " + id).addEntity(Disciplina.class).list().get(0);
+		
+		session.close();
+		return disciplina;
 	}
 }

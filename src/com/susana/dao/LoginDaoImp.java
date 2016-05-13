@@ -13,6 +13,7 @@ public class LoginDaoImp implements LoginDao {
 		// recebe o login do banco de dados
 		Login login_bd = (Login) session.createCriteria(Login.class).list().get(0); // retorna o primeiro login
 		
+		session.close();
 		// retorna se os logins sao iguais
 		return login.equals(login_bd);
 	}

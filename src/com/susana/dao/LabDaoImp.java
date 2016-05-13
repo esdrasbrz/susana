@@ -13,5 +13,6 @@ public class LabDaoImp implements LabDao {
 		Transaction t = session.beginTransaction();
 		session.save(lab);
 		t.commit();
+		session.close();
 	}
 }
