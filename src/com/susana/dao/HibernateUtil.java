@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.service.ServiceRegistry;
 
 import com.susana.model.Disciplina;
@@ -30,7 +31,6 @@ public class HibernateUtil {
 				System.err.println("Initial SessionFactory creation failed." + ex);
 				throw new ExceptionInInitializerError(ex);
 			}
-
 			return sessionFactory;
 		} else {
 			return sessionFactory;
@@ -38,17 +38,22 @@ public class HibernateUtil {
 	}
 	
 	public static Session getSession() {
-		if (session == null || !session.isOpen()) {
-			session = getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+		} catch (Exception e) {
+			try {
+				session = getSessionFactory().openSession();
+			} catch (JDBCConnectionException exception) {
+				// inicia novamente a sessao
+				sessionFactory = null;
+				session = getSessionFactory().openSession();
+			}
 		}
 		
 		return session;
 	}
 	
 	public static void closeSession() {
-		if (session != null) {
-			session.close();
-			session = null;
-		}
+		session.close();
 	}
 }

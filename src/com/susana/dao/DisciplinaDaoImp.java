@@ -23,9 +23,9 @@ public class DisciplinaDaoImp implements DisciplinaDao {
 	@Override
 	public void salvar(Disciplina disciplina) {
 		Session session = HibernateUtil.getSession();
-		Transaction t = session.beginTransaction();
+		session.beginTransaction();
 		session.save(disciplina);
-		t.commit();
+		session.getTransaction().commit();
 	}
 
 	@Override

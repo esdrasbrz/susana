@@ -29,6 +29,8 @@ import com.susana.model.Lab;
 @ManagedBean
 @SessionScoped
 public class LabController {
+	//private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
+	private static final String SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"; // server
 	private LabDao dao;
 	private Lab lab;
 	private List<String> mensagens;
@@ -56,7 +58,7 @@ public class LabController {
 
 		// seta o nome do arquivo com base na sessionId
 		String fileName = sessionId + ".c";
-		String path = "/opt/tomcat/webapps/susana-files/" + lab.getDisciplina().getNome() + "/"
+		String path = SUSANA_FILES + lab.getDisciplina().getNome() + "/"
 				+ lab.getNome() + "/";
 
 		try {
@@ -76,7 +78,7 @@ public class LabController {
 			ScriptEngineManager manager = new ScriptEngineManager();
 			
 			ScriptEngine scriptEngine = manager.getEngineByName("python");
-			scriptEngine.eval(new FileReader("/opt/tomcat/webapps/susana-files/testes.py"));
+			scriptEngine.eval(new FileReader(SUSANA_FILES + "testes.py"));
 			Invocable invocable = (Invocable) scriptEngine;
 
 			// recebe a saida do comando
@@ -124,7 +126,7 @@ public class LabController {
 			// abre o script em python
 			ScriptEngineManager manager = new ScriptEngineManager();
 			ScriptEngine scriptEngine = manager.getEngineByName("python");
-			scriptEngine.eval(new FileReader("/opt/tomcat/webapps/susana-files/testes.py"));
+			scriptEngine.eval(new FileReader(SUSANA_FILES + "testes.py"));
 			Invocable invocable = (Invocable) scriptEngine;
 			
 			// cria o diretorio do lab e baixa os testes

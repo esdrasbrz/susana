@@ -7,8 +7,8 @@ import os
 import commands
 
 # PATHs usados no SuSana
-SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"
-#SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"
+SUSANA_FILES = "/opt/tomcat/webapps/susana-files/" # server
+#SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/" # developer
 
 
 # Compila o programa e retorna caso ocorra algum erro ou warning
@@ -36,8 +36,12 @@ def testar(fileName, disciplina, lab, num):
     # executa e salva a saida. Se o retorno for maior que 100, ele da timeout
     ret = os.system("cd %s && timeout 5 ./%s <%sarq%02d.in >%sarq%02d" %(path, fileName + "out", path_testes, int(num), path_out + fileName, int(num)))
 
-    if (ret > 100):
+    # Timeout retorna 124
+    if (ret == 124):
         return "Timeout!"
+    # Segmentation fault retorna 139
+    if (ret == 139):
+        return "Segmentation fault!"
 
     # compara a saida
     diff = commands.getoutput("diff %sarq%02d %sarq%02d.res" %(path_out + fileName, int(num), path_testes, int(num)))

@@ -9,6 +9,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+import org.hibernate.FlushMode;
+
 import com.susana.dao.HibernateUtil;
 
 /**
@@ -28,10 +30,14 @@ public class Session implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// abre a session e transaction
+		HibernateUtil.getSession().setFlushMode(FlushMode.ALWAYS);
+		
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 		
-		// fecha a sessao hibernate
+		// fecha a sessao hibernate e da commit
+		HibernateUtil.getSession().flush();
 		HibernateUtil.closeSession();
 	}
 
