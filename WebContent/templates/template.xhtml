@@ -8,11 +8,18 @@
 <h:head>
 	<title>SuSana</title>
 
+	<link rel="stylesheet" type="text/css" href="/susana/css/susana.css" />
+	<link rel="shortcut icon" href="/susana/img/square-icon.png" />
+
 	<ui:insert name="head" />
 </h:head>
-<h:body>
-	<p:panel header="SuSana"
-		style="width: 70%; margin-left:auto; margin-right: auto;">
+<h:body id="body">
+	<p:panel id="panelBody">
+		<f:facet name="header">
+				<img src="/susana/img/square-icon.png" width="36"
+				height="36" />
+			<h:outputText value="uSana" styleClass="title" />
+		</f:facet>
 		<ui:insert name="body" />
 	</p:panel>
 </h:body>

@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+#body {
+	background-color: #5C666A
+}
+
+#panelBody {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.title {
+	font-size: 24px;
+	font-family: cursive;
+}

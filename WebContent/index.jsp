@@ -1,3 +1,3 @@
 <%
-response.sendRedirect("/susana/disciplinas.jsf");
+response.sendRedirect("/susana/disciplinas.susy");
 %>

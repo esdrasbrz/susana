@@ -7,8 +7,8 @@ import os
 import commands
 
 # PATHs usados no SuSana
-#SUSANA_FILES = "/opt/tomcat/webapps/susana-files/" # server
-SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/" # developer
+SUSANA_FILES = "/opt/tomcat/webapps/susana-files/" # server
+#SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/" # developer
 
 
 # Compila o programa e retorna caso ocorra algum erro ou warning

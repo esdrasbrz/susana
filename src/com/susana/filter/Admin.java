@@ -29,7 +29,7 @@ public class Admin implements Filter {
 		
 		if (login == null) { // usuario nao esta logado
 			// redireciona para a tela de login
-			((HttpServletResponse) response).sendRedirect("/susana/login.jsf");
+			((HttpServletResponse) response).sendRedirect("/susana/login.susy");
 			return;
 		}
 		

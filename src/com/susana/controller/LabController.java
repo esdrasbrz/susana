@@ -29,8 +29,8 @@ import com.susana.model.Lab;
 @ManagedBean
 @SessionScoped
 public class LabController {
-	private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
-	//private static final String SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"; // server
+	//private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
+	private static final String SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"; // server
 	private LabDao dao;
 	private Lab lab;
 	private List<String> mensagens;
