@@ -11,13 +11,17 @@
 	<ui:define name="body">
 		<br />
 		
-		Selecione o código fonte: 
+		Selecione os arquivos (.c e .h): 
 		<h:form enctype="multipart/form-data">
 					<p:fileUpload 
 						invalidFileMessage="Arquivo inválido!" fileUploadListener="#{labController.upload}"
 						invalidSizeMessage="Tamanho inválido!" cancelLabel="Cancelar"
-						label="Abrir" uploadLabel="Upload" mode="advanced" multiple="false"
-						sizeLimit="1000000" allowTypes="/(\.|\/)(c)$/" oncomplete="window.location='/susana/exibir.susy';" />
+						label="Abrir" uploadLabel="Upload" mode="advanced" multiple="true"
+						sizeLimit="1000000" allowTypes="/(\.|\/)(c|h)$/" />
+					
+					<br/>
+					
+					<p:commandButton ajax="false" value="Submeter" action="#{labController.submeter()}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

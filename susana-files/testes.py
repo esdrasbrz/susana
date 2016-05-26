@@ -10,13 +10,20 @@ import commands
 SUSANA_FILES = "/opt/tomcat/webapps/susana-files/" # server
 #SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/" # developer
 
-
-# Compila o programa e retorna caso ocorra algum erro ou warning
-def compilar(fileName, disciplina, lab):
+# cria o diretorio de um novo usuario
+def new_user(session_id, disciplina, lab):
     # seta o path
     path = SUSANA_FILES + disciplina + "/" + lab + "/"
 
-    ret = commands.getoutput("gcc -std=c99 -pedantic -Wall -lm %s -o %s" %(path+fileName, path+fileName+"out"))
+    # cria o diretorio
+    os.system("cd %s && mkdir %s" %(path, session_id))
+
+# Compila o programa e retorna caso ocorra algum erro ou warning
+def compilar(fileName, disciplina, lab, session_id):
+    # seta o path
+    path = SUSANA_FILES + disciplina + "/" + lab + "/"
+
+    ret = commands.getoutput("gcc -std=c99 -pedantic -Wall -lm %s -o %s" %(fileName, path+session_id+".out"))
 
     return unicode(ret, "utf-8")
 
@@ -25,8 +32,8 @@ def set_permissao(fileName, disciplina, lab):
     # seta o path
     path = SUSANA_FILES + disciplina + "/" + lab + "/"
 
-    os.system("chmod a-x %s" %(path+fileName+"out"))
-    os.system("chmod u+x %s" %(path+fileName+"out"))
+    os.system("chmod a-x %s" %(path+fileName+".out"))
+    os.system("chmod u+x %s" %(path+fileName+".out"))
 
 # Executa o programa e compara o arquivo, retornando o resultado
 def testar(fileName, disciplina, lab, num):
@@ -36,7 +43,7 @@ def testar(fileName, disciplina, lab, num):
     path_out = path + "out/"
 
     # executa e salva a saida. Se o retorno for maior que 100, ele da timeout
-    ret = os.system("cd %s && timeout 5 ./%s <%sarq%02d.in >%sarq%02d" %(path, fileName + "out", path_testes, int(num), path_out + fileName, int(num)))
+    ret = os.system("cd %s && timeout 5 ./%s <%sarq%02d.in >%sarq%02d" %(path, fileName+".out", path_testes, int(num), path_out + fileName, int(num)))
 
     # Timeout retorna 124
     if (ret == 124):
@@ -54,11 +61,11 @@ def testar(fileName, disciplina, lab, num):
     return unicode(diff, "utf-8")
 
 # Apaga o executavel e o codigo fonte dos arquivos
-def limpar(fileName, disciplina, lab):
+def limpar(session_id, disciplina, lab):
     # seta o path
     path = SUSANA_FILES + disciplina + "/" + lab + "/"
     # apaga os arquivos
-    os.system("cd %s && rm %s && rm %s" %(path, fileName, fileName + "out"))
+    os.system("cd %s && rm %s && rm -rf %s" %(path, session_id + ".out", session_id))
 
 # cria o diretorio da disciplina
 def cria_disciplina(disciplina):

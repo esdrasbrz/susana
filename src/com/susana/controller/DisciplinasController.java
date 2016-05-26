@@ -20,6 +20,8 @@ import com.susana.model.Disciplina;
 @ManagedBean
 @SessionScoped
 public class DisciplinasController {
+	// private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
+	private static final String SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"; // server
 	private List<Disciplina> disciplinas;
 	private Disciplina disciplina;
 	private DisciplinaDao dao;
@@ -46,7 +48,7 @@ public class DisciplinasController {
 			// abre o script em python
 			ScriptEngineManager manager = new ScriptEngineManager();
 			ScriptEngine scriptEngine = manager.getEngineByName("python");
-			scriptEngine.eval(new FileReader("/opt/tomcat/webapps/susana-files/testes.py"));
+			scriptEngine.eval(new FileReader(SUSANA_FILES + "testes.py"));
 			Invocable invocable = (Invocable) scriptEngine;
 			
 			// cria o diretorio da disciplina
