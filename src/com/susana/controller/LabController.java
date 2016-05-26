@@ -29,11 +29,12 @@ import com.susana.model.Lab;
 @ManagedBean
 @SessionScoped
 public class LabController {
-	//private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
-	private static final String SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"; // server
+	private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
+	//private static final String SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"; // server
 	private LabDao dao;
 	private Lab lab;
 	private List<String> mensagens;
+	private List<String> compilacao;
 
 	public LabController() {
 		dao = new LabDaoImp();
@@ -72,6 +73,7 @@ public class LabController {
 
 		// faz os testes
 		mensagens = new ArrayList<String>();
+		compilacao = new ArrayList<String>();
 
 		try {
 			// abre o script em Python
@@ -83,6 +85,16 @@ public class LabController {
 
 			// recebe a saida do comando
 			String erro = (String) invocable.invokeFunction("compilar", fileName, lab.getDisciplina().getNome(), lab.getNome());
+			
+			// verifica se compilacao esta vazia
+			if (erro == null || erro.isEmpty()) {
+				compilacao.add("Nenhuma mensagem");
+			} else {
+				// adiciona todas as linhas separadamente em compilacao
+				for (String linha : erro.split("\n")) {
+					compilacao.add(linha);
+				}
+			}
 
 			// verifica se não houve erro na compilacao
 			if (!erro.contains("error: ")) {
@@ -96,13 +108,21 @@ public class LabController {
 
 					// verifica se deu algum erro
 					if (!erro.isEmpty()) {
-						mensagens.add("Teste " + i + ": Falhou:\n" + erro);
+						mensagens.add("Teste " + i + ": Falhou:");
+						
+						// adiciona todas as linhas separadamente
+						for (String linha : erro.split("\n")) {
+							mensagens.add(linha);
+						}
 					} else {
 						mensagens.add("Teste " + i + ": OK!");
 					}
+					
+					// pula uma linha
+					mensagens.add("");
 				}
 			} else { // houve erro na compilacao
-				mensagens.add("Erro de compilação:\n" + erro);
+				mensagens.add("Erro de compilação!");
 			}
 
 			// apaga o executavel e o codigo fonte
@@ -159,5 +179,13 @@ public class LabController {
 
 	public void setMensagens(List<String> mensagens) {
 		this.mensagens = mensagens;
+	}
+
+	public List<String> getCompilacao() {
+		return compilacao;
+	}
+
+	public void setCompilacao(List<String> compilacao) {
+		this.compilacao = compilacao;
 	}
 }

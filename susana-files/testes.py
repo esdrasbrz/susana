@@ -7,8 +7,8 @@ import os
 import commands
 
 # PATHs usados no SuSana
-SUSANA_FILES = "/opt/tomcat/webapps/susana-files/" # server
-#SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/" # developer
+#SUSANA_FILES = "/opt/tomcat/webapps/susana-files/" # server
+SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/" # developer
 
 
 # Compila o programa e retorna caso ocorra algum erro ou warning
@@ -16,7 +16,9 @@ def compilar(fileName, disciplina, lab):
     # seta o path
     path = SUSANA_FILES + disciplina + "/" + lab + "/"
 
-    return commands.getoutput("gcc -std=c99 -pedantic -Wall -lm %s -o %s" %(path+fileName, path+fileName+"out"))
+    ret = commands.getoutput("gcc -std=c99 -pedantic -Wall -lm %s -o %s" %(path+fileName, path+fileName+"out"))
+
+    return unicode(ret, "utf-8")
 
 # Seta as permissoes para o executavel
 def set_permissao(fileName, disciplina, lab):
@@ -49,7 +51,7 @@ def testar(fileName, disciplina, lab, num):
     # apagar o arquivo de saida
     os.system("cd %s && rm %sarq%02d" %(path_out, fileName, int(num)))
 
-    return diff
+    return unicode(diff, "utf-8")
 
 # Apaga o executavel e o codigo fonte dos arquivos
 def limpar(fileName, disciplina, lab):

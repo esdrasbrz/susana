@@ -3,21 +3,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:composition template="/templates/template.xhtml">
 	<ui:define name="head"></ui:define>
 
 	<ui:define name="body">
 		<h:form>
-			<p:dataList value="#{labController.mensagens}"
-				var="mensagem">
-				<f:facet name="header">
-				Resultado da submissão
-			</f:facet>
-
-				<h:outputText value="#{mensagem}" />
-			</p:dataList>
+			<p:fieldset legend="Tempo de compilação">
+				<c:forEach items="#{labController.compilacao}" var="mensagem">
+					<h:outputText value="#{mensagem}" />
+				</c:forEach>
+			</p:fieldset>
+			
+			<br/>
+		
+			<p:fieldset legend="Resultado dos testes">
+				<c:forEach items="#{labController.mensagens}" var="mensagem">
+					<h:outputText value="#{mensagem}" /><br/>
+				</c:forEach>
+			</p:fieldset>
 		</h:form>
 	</ui:define>
 </ui:composition>
