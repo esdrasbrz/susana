@@ -23,6 +23,18 @@ def compilar(fileName, disciplina, lab, session_id):
     # seta o path
     path = SUSANA_FILES + disciplina + "/" + lab + "/"
 
+    # verifica os arquivos fonte
+    for arq in fileName.split(' '):
+        if arq != "":
+            # abre o arquivo
+            arquivo = open(arq, 'r')
+            fonte = arquivo.read()
+            arquivo.close()
+
+            # verifica se tem um comando do sistema
+            if fonte.find("system") != -1:
+                return u"error: Você não tem permissão para executar um comando do sistema"
+
     ret = commands.getoutput("gcc -std=c99 -pedantic -Wall -lm %s -o %s" %(fileName, path+session_id+".out"))
 
     return unicode(ret, "utf-8")

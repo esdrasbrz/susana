@@ -20,7 +20,7 @@ import com.susana.model.Disciplina;
 @ManagedBean
 @SessionScoped
 public class DisciplinasController {
-	// private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
+	//private static final String SUSANA_FILES = "/home/esdrasbrz/Projects/java/susana/susana-files/"; // developer
 	private static final String SUSANA_FILES = "/opt/tomcat/webapps/susana-files/"; // server
 	private List<Disciplina> disciplinas;
 	private Disciplina disciplina;
