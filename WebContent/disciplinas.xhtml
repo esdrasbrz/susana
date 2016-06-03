@@ -15,16 +15,15 @@
 		<br />
 
 		<h:form id="frmDisciplina">
-			<p:dataList value="#{disciplinasController.disciplinas}"
-				var="disciplina">
-				<f:facet name="header">
-				Escolha a disciplina:
-			</f:facet>
-				<p:commandLink ajax="false"
-					action="#{disciplinasController.selDisciplina(disciplina)}">
-					<h:outputText value="#{disciplina.nome}" />
-				</p:commandLink>
-			</p:dataList>
+			<p:dataTable value="#{disciplinasController.disciplinas}"
+				var="disciplina" sortBy="#{disciplina.id}">
+				<p:column headerText="Escolha a disciplina">
+					<p:commandLink ajax="false"
+						action="#{disciplinasController.selDisciplina(disciplina)}">
+						<h:outputText value="#{disciplina.nome}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>

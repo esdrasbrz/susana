@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Disciplina implements Serializable {
+public class Disciplina implements Serializable, Comparable<Disciplina> {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -52,5 +52,10 @@ public class Disciplina implements Serializable {
 
 	public void setLabs(List<Lab> labs) {
 		this.labs = labs;
+	}
+
+	@Override
+	public int compareTo(Disciplina o) {
+		return this.id - o.getId();
 	}
 }

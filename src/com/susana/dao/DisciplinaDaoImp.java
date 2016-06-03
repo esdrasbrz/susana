@@ -3,7 +3,6 @@ package com.susana.dao;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import com.susana.model.Disciplina;
 

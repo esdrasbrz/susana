@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Lab implements Serializable {
+public class Lab implements Serializable, Comparable<Lab> {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -79,5 +79,10 @@ public class Lab implements Serializable {
 
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	@Override
+	public int compareTo(Lab o) {
+		return this.id - o.getId();
 	}	
 }

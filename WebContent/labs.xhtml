@@ -12,15 +12,14 @@
 		<br />
 
 		<h:form id="frmLab">
-			<p:dataList value="#{disciplinasController.disciplina.labs}"
-				var="lab">
-				<f:facet name="header">
-				Selecione o lab:
-			</f:facet>
-				<p:commandLink ajax="false" action="#{labController.selLab(lab)}">
-					<h:outputText value="#{lab.nome}" />
-				</p:commandLink>
-			</p:dataList>
+			<p:dataTable value="#{disciplinasController.disciplina.labs}"
+				var="lab" sortBy="#{lab.id}">
+				<p:column headerText="Selecione o Lab">
+					<p:commandLink ajax="false" action="#{labController.selLab(lab)}">
+						<h:outputText value="#{lab.nome}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>

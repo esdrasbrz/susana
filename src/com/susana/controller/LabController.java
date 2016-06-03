@@ -36,8 +36,6 @@ public class LabController {
 	private List<String> mensagens;
 	private List<String> compilacao;
 	private String sources; // codigos fontes para compilar
-	private boolean mkdir; // logico que verifica se eh necessario criar o
-							// diretorio para o usuario
 
 	public LabController() {
 		dao = new LabDaoImp();
